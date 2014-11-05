@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 			},
 			js: {
 				files: ['src/js/*.js'],
-				tasks: ['concat', 'uglify']
+				tasks: ['concat']
 			},
 			bower: {
 				files: ['bower.json'],
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 				separator: ';', // permet d'ajouter un point-virgule entre chaque fichier concaténé.
 			},
 			dist: {
-				src: ['src/main.js'], // la source
+				src: ['src/js/main.js'], // la source
 				dest: 'build/main.js' // la destination finale
 			}
 		},
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
 		coffee: {
 			compile: {
 				files: {
-					'src/js/main.js': 'src/js/coffee/main.coffee' // 1:1 compile
+					'src/js/main.js': 'src/js/coffee/*.coffee' // 1:1 compile
 		    	}
 			}
 		}
