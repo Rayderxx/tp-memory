@@ -45,6 +45,8 @@
 
       Memory.prototype.currentCard = null;
 
+      Memory.prototype.that = null;
+
       function Memory() {
         this.init();
       }
@@ -83,11 +85,15 @@
       };
 
       Memory.prototype.isPair = function(id) {
+        var self;
         this.isCheckable = false;
         if (this.currentCard.id === id) {
-          return true;
+
         } else {
-          return false;
+          self = this;
+          return setTimeout((function() {
+            return self.resetCard();
+          }), 1000);
         }
       };
 
@@ -102,6 +108,12 @@
         }
       };
 
+      Memory.prototype.resetCard = function() {
+        this.that.find('.card-hide').show();
+        $(".card[data-id='" + this.currentCard.id + "']").find('.card-hide').show();
+        return memory.currentCard = null;
+      };
+
       return Memory;
 
     })();
@@ -109,20 +121,12 @@
     memory.displayCards();
     return $(function() {
       return $(".card").on("click", function() {
-        var id, result;
+        var id;
+        memory.that = $(this);
         $(this).find('.card-hide').hide();
         id = $(this).data('id');
         if (memory.isCheckable) {
-          result = memory.isPair(id);
-          if (result) {
-            $(function() {
-              return $(this).find('.card-hide').show();
-            });
-            $(function() {
-              return $(".card[data-id='" + memory.currentCard.id + "']").find('.card-hide').show();
-            });
-          }
-          return memory.currentCard = null;
+          return memory.isPair(id);
         } else {
           return memory.setCard(id);
         }
