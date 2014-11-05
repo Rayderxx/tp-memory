@@ -151,5 +151,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('dist', ['uglify:dist']);
 
 	grunt.registerTask('default', 'mochaTest');
-	grunt.registerTask('dev', ['concat:dist', 'compass:dist', 'imagemin', 'inline:dist', 'copy:main', 'bower:install', 'coffee'])
+	grunt.registerTask('dev', ['concat:dist', 'compass:dist', 'imagemin', 'inline:dist', 'copy:main', 'bower:install', 'coffee', 'concat:dist', 'uglify'])
 }
