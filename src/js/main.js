@@ -47,6 +47,8 @@
 
       Memory.prototype.that = null;
 
+      Memory.prototype.nbClick = 0;
+
       function Memory() {
         this.init();
       }
@@ -87,9 +89,7 @@
       Memory.prototype.isPair = function(id) {
         var self;
         this.isCheckable = false;
-        if (this.currentCard.id === id) {
-
-        } else {
+        if (this.currentCard.id !== id) {
           self = this;
           return setTimeout((function() {
             return self.resetCard();
@@ -122,14 +122,18 @@
     return $(function() {
       return $(".card").on("click", function() {
         var id;
+        memory.nbClick += 1;
         memory.that = $(this);
         $(this).find('.card-hide').hide();
         id = $(this).data('id');
         if (memory.isCheckable) {
-          return memory.isPair(id);
+          memory.isPair(id);
         } else {
-          return memory.setCard(id);
+          memory.setCard(id);
         }
+        return $(function() {
+          return $(".nbclick").html(memory.nbClick);
+        });
       });
     });
   })(jQuery);

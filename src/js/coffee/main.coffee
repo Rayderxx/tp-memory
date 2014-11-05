@@ -38,6 +38,7 @@ cards = [
         isCheckable: false
         currentCard: null
         that: null
+        nbClick: 0
         constructor: () ->
             @init()
 
@@ -59,8 +60,7 @@ cards = [
 
         isPair: (id) ->
             @isCheckable = false
-            if @currentCard.id == id
-            else
+            unless @currentCard.id == id
                 self = @
                 setTimeout((->
                     self.resetCard()
@@ -86,6 +86,7 @@ cards = [
     memory.displayCards();
 
     $ -> $(".card").on "click", ->
+        memory.nbClick += 1
         memory.that = $(this)
         $(this).find('.card-hide').hide();
         id = $(this).data('id')
@@ -94,5 +95,7 @@ cards = [
             memory.isPair(id)
         else
             memory.setCard(id)
+        
+        $ -> $(".nbclick").html memory.nbClick 
 
 ) jQuery
